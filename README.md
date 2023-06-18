@@ -1,5 +1,3 @@
 # Competitive-Programming
-These are problems I have solved, mostly on code chef.
+These are problems I have solved, mostly on codechef and leetcode.
 
-I will be saving interesting problems here.
-:)
