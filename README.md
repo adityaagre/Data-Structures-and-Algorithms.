@@ -1,3 +1,5 @@
-# Competitive-Programming
-These are problems I have solved, mostly on codechef and leetcode.
+I use this repository to keep records of algorithms or problems or any concepts that i found interesting
+:)
+
+
 
