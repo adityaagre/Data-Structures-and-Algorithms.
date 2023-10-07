@@ -14,7 +14,7 @@ vector<int> all_divisors(int n)
             ans_array.push_back(i);
     }
 
-    for(int i = sqrt(n); i>1; i--)
+    for(int i = sqrt(n); i>=1; i--)
     {
         if (n % i == 0) 
             //cout<<(n/i)<<endl;
