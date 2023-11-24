@@ -1,78 +1,61 @@
-import math
-
 def inp_graph():
-    directed = bool(input("Is the graph directed? Enter 0 or 1"))
+    n = int(input("Please enter number of nodes: "))
 
-    graph1 = []
+    graph = []
 
-    if(directed):
-        n = int(input("Enter number of nodes: "))
-        edges_remaining = True
-        print("\nEnter edges' details:")
-        print("IF No edge present between these nodes, enter 'inf'\n")
+    for i in range(n) :
+        row = []
+        for j in range(n) :
+            string1 = "Enter distance from node" +str( i+1) + " to " + str(j+1)+ ": "
+            row.append(int(input(string1)))
+        graph.append(row)
 
-        for ptr1 in range(n):
-            local_list = []
-            for ptr2 in range(n):
-                
-                print("Enter weight of edge from", ptr1, "to", ptr2, " :")
-                wt_str = input()
-                if(wt_str == "inf"):
-                    wt = math.inf
-                else:
-                    wt = int(wt_str)
-                local_list.append(wt)
-            graph1.append(local_list)
+    return graph
 
-    return(graph1,n)
+def next_vertex(vertices_covered,d):
+    temp = []
+    for i in range(len(d)):
+        temp.append([d[i], i])
 
+    temp.sort(key = lambda x : x[0])
 
-def Djikstra(graph, Number_of_nodes, source):
-    graph1=graph
-    ##Made a copy
-
-    dist =[]
-    ## List of distances, initially all infinity.
-    for i in range(Number_of_nodes):
-         dist.append(1000)
-    dist[0]=0
+    for x in temp:
+        if(vertices_covered[x[1]] == False):
+            return x[1]
+        
     
 
-    current = source
-    Done=[]
-    remaining=[]
-    for i in range(Number_of_nodes):
-        remaining.append(i)
-    
-    for i in range(Number_of_nodes):
-        for destination in range(Number_of_nodes):
-            print("at current, dest: ",current,destination)
-            print(dist[current] ,graph1[current][destination], dist[destination])
-            if(dist[current] + graph1[current][destination] < dist[destination]):
-                
-                dist[destination] = dist[current] + graph1[current][destination]
+def dijkstra(graph):
+    n = len(graph)
+    d = [100 for i in range(n)]
+    d[0]=0                                  ## V imp
+    current_node = 0
+    vertices_covered = [0 for i in range(n)]
+    ctr = n
+    print(d)
 
-        Done.append(current)
-        remaining.remove(current)
-        if(len(remaining)==0):
-            break
-        check_list =[]
-        for index in remaining:
-            check_list.append(dist[index])
-        min_dist = min(check_list)
-        new_curr_ind = dist.index(min_dist)
+    while(ctr):
+      ##  print("Counter =  ", ctr, "   " , "Current = ", current_node)
+        for x in range(n):
+            ##print(x)
+            ##print(d[current_node], graph[current_node][x], d[x])
+            if(d[current_node] + graph[current_node][x] < d[x]):
+                d[x] = d[current_node] + graph[current_node][x]
+               ## print("Updating to ", d[x])
+
+        print(d)
+        vertices_covered[current_node] = 1
+        current_node = next_vertex(vertices_covered,d)
+        ctr -= 1
+
+    return d
             
-        print(dist)
-        current = new_curr_ind
-
-    print(dist)
-
-
-g1,n = given_graph = [[0,2,4,100,100,100], [100,0,1,7,100,100],[100,100,0,100,3,100],[100,100,100,0,100,1],[100,100,100,100,0,5],[100,100,100,100,100,0]], 6
-Djikstra(g1,n,0)
-
-        
-        
-        
 
     
+
+    
+    
+graph = [[0,50,45,10,100,100], [100,0,10,100,100,100], [100,100,0,100,30,100], [10,15,100,0,15,100], [100, 20,35,100,0,100], [100,100,100,100,3,0]]
+
+##graph = inp_graph()
+print(dijkstra(graph))
